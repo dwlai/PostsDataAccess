@@ -40,7 +40,7 @@ namespace PostsDataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddOrganization", orgNameParameter);
         }
     
-        public virtual int spAddPost(Nullable<int> badge, Nullable<int> orgID, string reportNumber, string postMessage, Nullable<System.DateTime> date, Nullable<int> userId)
+        public virtual int spAddPost(Nullable<int> badge, Nullable<int> orgID, string posterFirstName, string posterLastName, string email, string reportNumber, string postMessage, Nullable<System.DateTime> date, Nullable<int> userId)
         {
             var badgeParameter = badge.HasValue ?
                 new ObjectParameter("Badge", badge) :
@@ -49,6 +49,18 @@ namespace PostsDataAccess
             var orgIDParameter = orgID.HasValue ?
                 new ObjectParameter("OrgID", orgID) :
                 new ObjectParameter("OrgID", typeof(int));
+    
+            var posterFirstNameParameter = posterFirstName != null ?
+                new ObjectParameter("PosterFirstName", posterFirstName) :
+                new ObjectParameter("PosterFirstName", typeof(string));
+    
+            var posterLastNameParameter = posterLastName != null ?
+                new ObjectParameter("PosterLastName", posterLastName) :
+                new ObjectParameter("PosterLastName", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
     
             var reportNumberParameter = reportNumber != null ?
                 new ObjectParameter("ReportNumber", reportNumber) :
@@ -66,7 +78,7 @@ namespace PostsDataAccess
                 new ObjectParameter("UserId", userId) :
                 new ObjectParameter("UserId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddPost", badgeParameter, orgIDParameter, reportNumberParameter, postMessageParameter, dateParameter, userIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddPost", badgeParameter, orgIDParameter, posterFirstNameParameter, posterLastNameParameter, emailParameter, reportNumberParameter, postMessageParameter, dateParameter, userIdParameter);
         }
     
         public virtual int spAddUser(Nullable<int> orgID, Nullable<int> badge, string firstName, string lastName)

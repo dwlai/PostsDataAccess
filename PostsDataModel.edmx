@@ -18,6 +18,9 @@
           </Key>
           <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="PosterFirstName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="PosterLastName" Type="varchar" MaxLength="25" />
+          <Property Name="Email" Type="varchar" MaxLength = "50" />
           <Property Name="ReportNumber" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="PostMessage" Type="varchar" MaxLength="5000" />
           <Property Name="Date" Type="smalldatetime" Nullable="false" />
@@ -66,6 +69,9 @@
         <Function Name="spAddPost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Badge" Type="int" Mode="In" />
           <Parameter Name="OrgID" Type="int" Mode="In" />
+		  <Parameter Name="PosterFirstName" Type="varchar" Mode="In" />
+	      <Parameter Name="PosterLastName" Type="varchar" Mode="In" />
+		  <Parameter Name="Email" Type="varchar" Mode="In" />
           <Parameter Name="ReportNumber" Type="varchar" Mode="In" />
           <Parameter Name="PostMessage" Type="varchar" Mode="In" />
           <Parameter Name="Date" Type="smalldatetime" Mode="In" />
@@ -112,6 +118,9 @@
           </Key>
           <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="PosterFirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PosterLastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false"/>
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ReportNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PostMessage" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
@@ -175,6 +184,9 @@
           <FunctionImport Name="spAddPost">
             <Parameter Name="Badge" Mode="In" Type="Int32" />
             <Parameter Name="OrgID" Mode="In" Type="Int32" />
+			<Parameter Name="PosterFirstName" Mode="In" Type="String" />
+			<Parameter Name="PosterLastName" Mode="In" Type="String" />
+			<Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="ReportNumber" Mode="In" Type="String" />
             <Parameter Name="PostMessage" Mode="In" Type="String" />
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -197,6 +209,9 @@
         <ComplexType Name="spGetAllPosts_Result">
           <Property Type="Int32" Name="PostID" Nullable="false" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
+		  <Property Type="String" Name="PosterFirstName" Nullable="false" MaxLength="25" />
+		  <Property Type="String" Name="PosterLastName" Nullable="true" MaxLength="25" />
+		  <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ReportNumber" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="PostMessage" Nullable="true" MaxLength="5000" />
           <Property Type="DateTime" Name="Date" Nullable="false" Precision="16" />
@@ -227,6 +242,9 @@
               <MappingFragment StoreEntitySet="Posts">
                 <ScalarProperty Name="PostID" ColumnName="PostID" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+				<ScalarProperty Name="PosterFirstName" ColumnName="PosterFirstName" />
+				<ScalarProperty Name="PosterLastName" ColumnName="PosterLastName" />
+				<ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="ReportNumber" ColumnName="ReportNumber" />
                 <ScalarProperty Name="PostMessage" ColumnName="PostMessage" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -260,6 +278,9 @@
               <ComplexTypeMapping TypeName="CopProjectDBModel.spGetAllPosts_Result">
                 <ScalarProperty Name="PostID" ColumnName="PostID" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+				<ScalarProperty Name="PosterFirstName" ColumnName="PosterFirstName" />
+				<ScalarProperty Name="PosterLastName" ColumnName="PosterLastName" />
+				<ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="ReportNumber" ColumnName="ReportNumber" />
                 <ScalarProperty Name="PostMessage" ColumnName="PostMessage" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
