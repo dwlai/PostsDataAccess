@@ -32,8 +32,10 @@
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrgID" Type="int" Nullable="false" />
           <Property Name="Badge" Type="int" Nullable="false" />
+          <Property Name="OfficerRank" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength = "50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Posts_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
@@ -133,8 +135,10 @@
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrgID" Type="Int32" Nullable="false" />
           <Property Name="Badge" Type="Int32" Nullable="false" />
+          <Property Name="OfficerRank" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Organization" Relationship="Self.FK_Users_Organizations" FromRole="Users" ToRole="Organizations" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_Users" FromRole="Users" ToRole="Posts" />
         </EntityType>
@@ -220,8 +224,10 @@
           <Property Type="Int32" Name="UserID" Nullable="false" />
           <Property Type="Int32" Name="OrgID" Nullable="false" />
           <Property Type="Int32" Name="Badge" Nullable="false" />
+          <Property Type="String" Name="OfficerRank" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
           <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -257,8 +263,10 @@
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="OrgID" ColumnName="OrgID" />
                 <ScalarProperty Name="Badge" ColumnName="Badge" />
+                <ScalarProperty Name="OfficerRank" ColumnName="OfficerRank" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

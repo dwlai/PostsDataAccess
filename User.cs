@@ -23,8 +23,10 @@ namespace PostsDataAccess
         public int UserID { get; set; }
         public int OrgID { get; set; }
         public int Badge { get; set; }
+        public string OfficerRank { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
     
         public virtual Organization Organization { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
