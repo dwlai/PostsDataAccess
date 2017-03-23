@@ -16,7 +16,10 @@ namespace PostsDataAccess
         public int UserID { get; set; }
         public int OrgID { get; set; }
         public int Badge { get; set; }
+        public string Unit { get; set; }
+        public string OfficerRank { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -81,7 +81,7 @@ namespace PostsDataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddPost", badgeParameter, orgIDParameter, posterFirstNameParameter, posterLastNameParameter, emailParameter, reportNumberParameter, postMessageParameter, dateParameter, userIdParameter);
         }
     
-        public virtual int spAddUser(Nullable<int> orgID, Nullable<int> badge, string firstName, string lastName)
+        public virtual int spAddUser(Nullable<int> orgID, Nullable<int> badge, string unit, string officerRank, string firstName, string lastName, string email, string password)
         {
             var orgIDParameter = orgID.HasValue ?
                 new ObjectParameter("OrgID", orgID) :
@@ -91,6 +91,14 @@ namespace PostsDataAccess
                 new ObjectParameter("Badge", badge) :
                 new ObjectParameter("Badge", typeof(int));
     
+            var unitParameter = unit != null ?
+                new ObjectParameter("Unit", unit) :
+                new ObjectParameter("Unit", typeof(string));
+    
+            var officerRankParameter = officerRank != null ?
+                new ObjectParameter("OfficerRank", officerRank) :
+                new ObjectParameter("OfficerRank", typeof(string));
+    
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("FirstName", firstName) :
                 new ObjectParameter("FirstName", typeof(string));
@@ -99,7 +107,15 @@ namespace PostsDataAccess
                 new ObjectParameter("LastName", lastName) :
                 new ObjectParameter("LastName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddUser", orgIDParameter, badgeParameter, firstNameParameter, lastNameParameter);
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddUser", orgIDParameter, badgeParameter, unitParameter, officerRankParameter, firstNameParameter, lastNameParameter, emailParameter, passwordParameter);
         }
     
         public virtual ObjectResult<spGetAllOrganizations_Result> spGetAllOrganizations()

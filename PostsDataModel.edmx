@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CopProjectDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CopProjectDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Organizations">
           <Key>
             <PropertyRef Name="OrgID" />
@@ -20,7 +20,7 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="PosterFirstName" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="PosterLastName" Type="varchar" MaxLength="25" />
-          <Property Name="Email" Type="varchar" MaxLength = "50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="ReportNumber" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="PostMessage" Type="varchar" MaxLength="5000" />
           <Property Name="Date" Type="smalldatetime" Nullable="false" />
@@ -31,12 +31,13 @@
           </Key>
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrgID" Type="int" Nullable="false" />
-          <Property Name="Badge" Type="int" Nullable="false" />
           <Property Name="Unit" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Badge" Type="int" Nullable="false" />
           <Property Name="OfficerRank" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength = "50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Posts_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
@@ -72,9 +73,9 @@
         <Function Name="spAddPost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Badge" Type="int" Mode="In" />
           <Parameter Name="OrgID" Type="int" Mode="In" />
-		  <Parameter Name="PosterFirstName" Type="varchar" Mode="In" />
-	      <Parameter Name="PosterLastName" Type="varchar" Mode="In" />
-		  <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="PosterFirstName" Type="varchar" Mode="In" />
+          <Parameter Name="PosterLastName" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
           <Parameter Name="ReportNumber" Type="varchar" Mode="In" />
           <Parameter Name="PostMessage" Type="varchar" Mode="In" />
           <Parameter Name="Date" Type="smalldatetime" Mode="In" />
@@ -83,8 +84,12 @@
         <Function Name="spAddUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="OrgID" Type="int" Mode="In" />
           <Parameter Name="Badge" Type="int" Mode="In" />
+          <Parameter Name="Unit" Type="varchar" Mode="In" />
+          <Parameter Name="OfficerRank" Type="varchar" Mode="In" />
           <Parameter Name="FirstName" Type="varchar" Mode="In" />
           <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
         <Function Name="spGetAllOrganizations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spGetAllPosts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -102,8 +107,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CopProjectDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -143,6 +147,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Organization" Relationship="Self.FK_Users_Organizations" FromRole="Users" ToRole="Organizations" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_Users" FromRole="Users" ToRole="Posts" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Users_Organizations">
           <End Role="Organizations" Type="Self.Organization" Multiplicity="1">
@@ -185,14 +190,14 @@
             <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
           <FunctionImport Name="spAddOrganization">
-            <Parameter Name="OrgName" Mode="In" Type="String" />
+          <Parameter Name="OrgName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spAddPost">
             <Parameter Name="Badge" Mode="In" Type="Int32" />
             <Parameter Name="OrgID" Mode="In" Type="Int32" />
-			<Parameter Name="PosterFirstName" Mode="In" Type="String" />
-			<Parameter Name="PosterLastName" Mode="In" Type="String" />
-			<Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="PosterFirstName" Mode="In" Type="String" />
+            <Parameter Name="PosterLastName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="ReportNumber" Mode="In" Type="String" />
             <Parameter Name="PostMessage" Mode="In" Type="String" />
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -201,8 +206,12 @@
           <FunctionImport Name="spAddUser">
             <Parameter Name="OrgID" Mode="In" Type="Int32" />
             <Parameter Name="Badge" Mode="In" Type="Int32" />
+            <Parameter Name="Unit" Mode="In" Type="String" />
+            <Parameter Name="OfficerRank" Mode="In" Type="String" />
             <Parameter Name="FirstName" Mode="In" Type="String" />
             <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spGetAllOrganizations" ReturnType="Collection(CopProjectDBModel.spGetAllOrganizations_Result)" />
           <FunctionImport Name="spGetAllPosts" ReturnType="Collection(CopProjectDBModel.spGetAllPosts_Result)" />
@@ -263,6 +272,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="CopProjectDBModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="OrgID" ColumnName="OrgID" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />

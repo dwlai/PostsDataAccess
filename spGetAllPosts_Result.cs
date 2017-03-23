@@ -15,6 +15,9 @@ namespace PostsDataAccess
     {
         public int PostID { get; set; }
         public int UserId { get; set; }
+        public string PosterFirstName { get; set; }
+        public string PosterLastName { get; set; }
+        public string Email { get; set; }
         public string ReportNumber { get; set; }
         public string PostMessage { get; set; }
         public System.DateTime Date { get; set; }
